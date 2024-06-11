@@ -30,6 +30,6 @@ public class Mascota {
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
-    private Cliente id_cliSente;
+    private Cliente id_cliente;
 
 }
