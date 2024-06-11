@@ -37,6 +37,9 @@ public class Cliente implements UserDetails {
     @Column(name = "email_cliente")
     private String emailCliente;
 
+    @Column(name = "pass_cliente")
+    private String passCliente;
+
     @Column(name = "direccion_cliente")
     private String direccionCliente;
 
@@ -52,12 +55,12 @@ public class Cliente implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "";
+        return passCliente;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return emailCliente;
     }
 
     @Override

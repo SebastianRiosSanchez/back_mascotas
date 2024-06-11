@@ -21,6 +21,8 @@ public class RegisterRequest {
 
     private String emailCliente;
 
+    private String passCliente;
+
     private String direccionCliente;
 
 }

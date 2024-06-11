@@ -5,6 +5,7 @@ import com.petshop.tienda.models.Cliente;
 import com.petshop.tienda.models.Role;
 import com.petshop.tienda.repositorys.ClienteRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,7 @@ public class AuthService {
 
     private final ClienteRepository clienteRepository;
     private final JTWService jtwService;
+    private final PasswordEncoder passwordEncoder;
 
     public AuthResponse login(LoginRequest request) {
         return null;
@@ -26,6 +28,7 @@ public class AuthService {
                 .ccCliente(request.getCcCliente())
                 .emailCliente(request.getEmailCliente())
                 .direccionCliente(request.getDireccionCliente())
+                .passCliente(passwordEncoder.encode(request.getPassCliente()))
                 .role(Role.USER)
                 .build();
 
