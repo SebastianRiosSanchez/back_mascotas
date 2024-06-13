@@ -7,6 +7,7 @@ import com.petshop.tienda.repositorys.ClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,12 @@ public class AuthService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.emailCliente, request.passCliente));
         UserDetails user = clienteRepository.findByEmailCliente(request.emailCliente).orElseThrow();
         String token = jtwService.getToken(user);
+        String role = user.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+                .findFirst()
+                .orElse("Error al obtener el rol");
         return AuthResponse.builder()
                 .token(token)
+                .rol(role)
                 .build();
     }
 

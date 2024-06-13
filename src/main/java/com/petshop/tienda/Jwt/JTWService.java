@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,10 +42,6 @@ public class JTWService {
     public String getUsernameFromToken(String token) {
         return getClaim(token, Claims::getSubject);
     }
-
-//    public Object getUsernameFromToken(String token) {
-//        return getClaim(token, Claims::getSubject);
-//    }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);

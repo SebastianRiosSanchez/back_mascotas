@@ -1,5 +1,6 @@
 package com.petshop.tienda.AuthController;
 
+import com.petshop.tienda.models.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
