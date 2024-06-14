@@ -59,6 +59,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter { // La clase 
     private String getTokenFromRequest(HttpServletRequest request) {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION); // Se declara una variable para almacenar el encabezado de la petición.
 
+        System.out.println("Encabezado de la peticion: " + authHeader);
+
         //Se verifica si el encabezado tiene el texto y si este comienza por "Bearer ". En caso contrario se retorna nulo.
         if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
