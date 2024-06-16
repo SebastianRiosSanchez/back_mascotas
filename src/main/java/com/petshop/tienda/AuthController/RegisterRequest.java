@@ -26,4 +26,6 @@ public class RegisterRequest {
 
     private String direccionCliente;
 
+    private Role role;
+
 }

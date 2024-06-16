@@ -30,7 +30,7 @@ public class AuthService {
                 .orElse("Error al obtener el rol");
         return AuthResponse.builder()
                 .token(token)
-                .rol(role)
+                .role(Role.valueOf(role))
                 .build();
     }
 
@@ -43,13 +43,14 @@ public class AuthService {
                 .emailCliente(request.getEmailCliente())
                 .direccionCliente(request.getDireccionCliente())
                 .passCliente(passwordEncoder.encode(request.getPassCliente()))
-                .role(Role.USER)
+                .role(request.getRole())
                 .build();
 
         clienteRepository.save(cliente);
 
         return AuthResponse.builder()
                 .token(jtwService.getToken(cliente))
+                .role(cliente.getRole())
                 .build();
     }
 }
