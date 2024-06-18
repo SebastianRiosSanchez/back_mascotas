@@ -32,4 +32,7 @@ public class Mascota {
     @JoinColumn(name = "id_cliente")
     private Cliente id_cliente;
 
+    @Column(name = "image")
+    private String image;
+
 }

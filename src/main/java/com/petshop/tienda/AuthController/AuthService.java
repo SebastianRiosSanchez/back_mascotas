@@ -22,16 +22,28 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse login(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.emailCliente, request.passCliente));
-        UserDetails user = clienteRepository.findByEmailCliente(request.emailCliente).orElseThrow();
-        String token = jtwService.getToken(user);
-        String role = user.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmailCliente(), request.getPassCliente()));
+        Cliente cliente = clienteRepository.findByEmailCliente(request.getEmailCliente()).orElseThrow();
+        String token = jtwService.getToken(cliente);
+        String role = cliente.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                 .findFirst()
                 .orElse("Error al obtener el rol");
+
         return AuthResponse.builder()
                 .token(token)
                 .role(Role.valueOf(role))
+                .cliente(cliente)
                 .build();
+//        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.emailCliente, request.passCliente));
+//        UserDetails user = clienteRepository.findByEmailCliente(request.emailCliente).orElseThrow();
+//        String token = jtwService.getToken(user);
+//        String role = user.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+//                .findFirst()
+//                .orElse("Error al obtener el rol");
+//        return AuthResponse.builder()
+//                .token(token)
+//                .role(Role.valueOf(role))
+//                .build();
     }
 
     public AuthResponse register(RegisterRequest request) {
@@ -51,6 +63,23 @@ public class AuthService {
         return AuthResponse.builder()
                 .token(jtwService.getToken(cliente))
                 .role(cliente.getRole())
+                .cliente(cliente)
                 .build();
+//        Cliente cliente = Cliente.builder()
+//                .nombreCliente(request.getNombreCliente())
+//                .apellidoCliente(request.getApellidoCliente())
+//                .ccCliente(request.getCcCliente())
+//                .emailCliente(request.getEmailCliente())
+//                .direccionCliente(request.getDireccionCliente())
+//                .passCliente(passwordEncoder.encode(request.getPassCliente()))
+//                .role(request.getRole())
+//                .build();
+//
+//        clienteRepository.save(cliente);
+//
+//        return AuthResponse.builder()
+//                .token(jtwService.getToken(cliente))
+//                .role(cliente.getRole())
+//                .build();
     }
 }

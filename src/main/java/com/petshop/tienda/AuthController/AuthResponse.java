@@ -15,5 +15,6 @@ public class AuthResponse {
 
     String token;
     Role role;
+    Cliente cliente;
 
 }
